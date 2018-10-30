@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>#rect{width:200px; height:200px; background: red; }
+
+		/*애니메이션만 따로 떼어 아래처럼 클래스를 만듭니다.*/
+		.drop{animation: drop 1s forwards paused;}
+	@keyframes drop{
+		from{margin-top: 0px}
+		to{margin-top:200px}
+	}
+	</style>
+
+</head>
+<body>
+	<!-- 아이디와 클래스를 지정합니다. -->
+	<div id="rect" class="drop"></div>
+	<button id="start">start</button>
+	<button id="reset">reset</button>
+	<script type="text/javascript">
+		// 애니메이션을 실행하는 버튼
+		start.onclick = function(){ rect.style.animationPlayState = "running"; }
+		// 애니메이션을 리셋하는 버튼
+		reset.onclick = function(){ restartAnimation("rect","drop");};
+
+		function restartAnimation(aid,aclass){
+			var t = document.getElementById(aid);
+			// 기본원리는 애니메이션 클래스를 지웠다가 잠시기다린 후 다시 붙이는 것입니다.
+			// 우선 해당 클래스를 제거합니다.
+			t.classList.remove(aclass);
+
+			// 이번에는 다시 붙이는데, 바로 붙이면 안되고 0.1초 기다렸다 붙입니다.
+			setTimeout(function(){ t.classList.add(aclass); t.style.animationPlayState = "paused"; },100);
+		}
+
+	</script>
+</body>
+
+</html>
